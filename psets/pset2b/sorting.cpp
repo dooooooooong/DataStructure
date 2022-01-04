@@ -40,10 +40,11 @@ using namespace std;
 // random number out of from 0 to N - 1.
 // Hint: Refer to rand() and srand() function document, random.pdf provided.
 void randomize_bruteforce(int list[], int n) {
-
-	cout << "your code here - rewrite the following code\n";
-	for (int i = 0; i < n; i++) 
-		list[i] = rand() % n;
+	srand(time(nullptr));
+	for (int i = 0; i < n; i++) {
+		int r = rand() % n;
+		swap(list[i], list[r]);
+	}
 }
 
 void show_timeit(int begin) { 	// display elapsed time
@@ -140,7 +141,13 @@ int main(int argc, char *argv[]) {
 			// before allocating the new list, free the old list if not NULL
 			// allocate memory for new data samples
 			// Fill the list with numbers from 0 to n - 1.
-			cout << "n: your code here\n";
+			N = keyin;
+			delete[] list;
+
+			list = new int[N];
+			for (int i = 0; i < N; i++) 
+				list[i] = i;
+
 			break;
 
 		case 'r': 
@@ -153,16 +160,16 @@ int main(int argc, char *argv[]) {
 
 		case 'm': 
 			keyin = GetInt("\tEnter max samples to show: ");
-			cout << "m: your code here\n";
+			if (keyin < N) show_n = keyin;
 			break;
 
 		case 'l': 
 			keyin = GetInt("\tEnter max samples per line: ");
-			cout << "p: your code here\n";
+			if (keyin < N) per_line = keyin;
 			break;
 		
 		case 'o': // use comp_fp, ::less, more and a ternary operator 
-			cout << "o: your code here\n";		// one-line code, use 
+			comp_fp == ::less ? comp_fp = ::more : comp_fp = ::less;		// one-line code, use 
 			break;
 
 		case 's': 
@@ -177,8 +184,11 @@ int main(int argc, char *argv[]) {
 		}
 	} while (choice != 'q');
 
+	
+
 	cout << "your code here\n";
 
 	cout << "\tHappy Coding~~";
+	delete[] list;
 	return EXIT_SUCCESS;
 }
