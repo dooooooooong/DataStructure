@@ -76,3 +76,6 @@ Ankh.NoLoad
 .Trashes
 ehthumbs.db
 Thumbs.db
+
+# PPT and Docs
+ppts/*

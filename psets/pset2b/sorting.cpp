@@ -65,11 +65,13 @@ int main(int argc, char *argv[]) {
 
 	// Declare a comparator function pointer 'comp_fp' variable and initialize 
 	// it with an ascending order comparator function, '::less'.
-	cout << "your code here\n";        	// declare comp_fp 
+	bool (*comp_fp)(int, int) = ::less;        	// declare comp_fp 
 
 	// Declare a sort function pointer variable 'sort_fp' and initialize it 
 	// with a sort function, 'bubblesort': 
-	cout << "your code here\n";   		// declare sort_fp
+	
+	
+	void (*sort_fp)(int *, int, bool(*comp)(int, int)) = bubblesort;   		// declare sort_fp
 
 	///////////////////////////////////////////////////////////////////////////////
 	// Two STL maps are used for showing the current status of user's selections.
@@ -112,19 +114,19 @@ int main(int argc, char *argv[]) {
 
 		switch (choice) {
 		case 'B':
-			cout << "B: your code here\n";
+			sort_fp = bubblesort;
 			break;
 		case 'I':
-			cout << "I: your code here\n";
+			sort_fp = insertionsort;
 			break;
 		case 'M':
-			cout << "M: your code here\n";
+			sort_fp = mergesort;
 			break;
 		case 'Q':
-			cout << "Q: your code here\n";
+			sort_fp = quicksort;
 			break;
 		case 'S':
-			cout << "S: your code here\n";
+			sort_fp = selectionsort;
 			break;
 
 		case 'n': 
