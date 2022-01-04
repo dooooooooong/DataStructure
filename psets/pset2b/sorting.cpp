@@ -71,7 +71,6 @@ int main(int argc, char *argv[]) {
 	// Declare a sort function pointer variable 'sort_fp' and initialize it 
 	// with a sort function, 'bubblesort': 
 	
-	
 	void (*sort_fp)(int *, int, bool(*comp)(int, int)) = bubblesort;   		// declare sort_fp
 
 	///////////////////////////////////////////////////////////////////////////////
@@ -83,18 +82,23 @@ int main(int argc, char *argv[]) {
 	// Define a STL map variable 'comp_map' to associate the comparator 
 	// function pointer with a description such as "Ascending" and "Descending", 
 	// respectively.
-	cout << "your code here\n"; 		// define comp_map
+	map < bool(*)(int, int), string > comp_map;		// define comp_map
 
 	// Insert(or populate) 'comp_map' with two keys and values pairs. 
-	cout << "your code here\n";  		// for "Ascending" and for "Descending"
+	comp_map.insert(make_pair(::less, "Ascending"));  		// for "Ascending" and for "Descending"
+	comp_map.insert(make_pair(::more, "Descending"));
 
 	// Define a STL map variable 'sort_map' to associate <key_type, value_type> pair,  
 	// where key_type is sort fp and value_type is a description of the sort name.
-	cout << "your code here\n"; 		// define sort_map
+	map < void(*)(int*, int, bool(*)(int, int)), string > sort_map; 		// define sort_map
 
 	// Insert (or populate) 'sort_map' with key and value pairs. 
 	// For example, sort_map[bubblesort] = "Bubble";
-	cout << "your code here\n";
+	sort_map.insert(make_pair(selectionsort, "Selection"));  
+	sort_map.insert(make_pair(bubblesort, "Bubble")); 
+	sort_map.insert(make_pair(insertionsort, "Insertion")); 
+	sort_map.insert(make_pair(quicksort, "Quick")); 
+	sort_map.insert(make_pair(mergesort, "Merge")); 
 	///////////////////////////////////////////////////////////////////////////////
 
 	setvbuf(stdout, NULL, _IONBF, 0);  	// prevent output from buffered on console
@@ -102,7 +106,7 @@ int main(int argc, char *argv[]) {
 	do {
 		printlist(list, N, show_n, per_line);
 		stringstream ss;
-		ss << "\tMENU[ sort=" << "Your code here" << " order=" << "Your code here";
+		ss << "\tMENU[ sort=" << sort_map[sort_fp] << " order=" << comp_map[comp_fp];
 		ss << " N=" << N << " show_n=" << show_n << " per_line=" << per_line << " ]";
 		cout << ss.str() << endl;
 		cout << "\tB - Bubblesort\t" 		<< "\tn - set N samples and initialize\n"; 
@@ -160,22 +164,21 @@ int main(int argc, char *argv[]) {
 
 		case 'm': 
 			keyin = GetInt("\tEnter max samples to show: ");
-			if (keyin < N) show_n = keyin;
+			show_n = keyin;
 			break;
 
 		case 'l': 
 			keyin = GetInt("\tEnter max samples per line: ");
-			if (keyin < N) per_line = keyin;
+			per_line = keyin;
 			break;
 		
-		case 'o': // use comp_fp, ::less, more and a ternary operator 
+		case 'o':
 			comp_fp == ::less ? comp_fp = ::more : comp_fp = ::less;		// one-line code, use 
 			break;
 
 		case 's': 
 			begin = clock();
-			cout << "s: your code here\n";  	// one-line code, use sort_fp, comp_fp
-			bubblesort(list, N);                // remove this line
+			sort_fp(list, N, comp_fp);  	// one-line code, use sort_fp, comp_fp
 			show_timeit(begin); 
 			break;
 
@@ -184,11 +187,7 @@ int main(int argc, char *argv[]) {
 		}
 	} while (choice != 'q');
 
-	
-
-	cout << "your code here\n";
-
-	cout << "\tHappy Coding~~";
+	cout << "\tHappy Coding~~\n";
 	delete[] list;
 	return EXIT_SUCCESS;
 }

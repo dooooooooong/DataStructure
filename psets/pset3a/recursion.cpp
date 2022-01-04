@@ -1,4 +1,7 @@
-﻿/* 
+﻿// On my honor, I pledge that I have neither received nor provided improper assistance in the completion of this assignment.
+// 서명: ___강동인_______ 학번: ____21500002___
+
+/* 
  * Lecture Notes on Recursion by Youngsup Kim
  * Recursive algorithm is expressed in terms of 
  * 1. base case(s) for which the solution can be stated non‐recursively,
@@ -23,7 +26,7 @@
  */
 
 long long unsigned factorial(int n) {
-	std::cout << "your code here\n";
+	if (n > 1) return n * factorial(n-1);
 	return 1;
 }
 
@@ -92,8 +95,12 @@ int bunnyEars(int bunnies) {
  *
  */
 int funnyEars(int funnies) {
-	std::cout << "your code here\n";
-	return 2;
+	if (funnies == 0) return 0;
+
+	if (funnies % 2 == 0) return 3 + funnyEars(funnies-1);
+	
+	return 2 + funnyEars(funnies-1);
+
 }
 
 /* 
@@ -113,8 +120,8 @@ int funnyEars(int funnies) {
  */
 
 int triangle(int rows) {
-	std::cout << "your code here\n";
-	return rows;
+	if (rows >= 1) return rows + triangle(rows-1);
+	return 0;
 }
 
 
@@ -130,7 +137,8 @@ int triangle(int rows) {
  * sumDigits(235) = 10
  */
 int sumDigits(int n) {
-	std::cout << "your code here\n";
+	if (n >= 10) return n%10 + sumDigits(n/10);
+
 	return n;
 }
 
@@ -152,8 +160,14 @@ int sumDigits(int n) {
  */
 
 int count8(int n) {
-	std::cout << "your code here\n";
-	return n;
+	if (n >= 10) {
+		if (n%10 == 8) return 1 + count8(n/10);
+		else return count8(n/10);
+	}
+
+	if (n == 8) return 1;
+
+	return 0;
 }
 
 /* 
@@ -169,8 +183,13 @@ int count8(int n) {
  */
 
 long long unsigned powerN(int base, int n) {
-	std::cout << "your code here\n";
-	return n;
+	
+	if (n >= 1) {
+		if (n % 2 == 0) return powerN (base, n/2) * powerN(base, n/2);
+		else return base * powerN (base, n/2) * powerN(base, n/2);
+	}
+
+	return 1;
 }
 
 
