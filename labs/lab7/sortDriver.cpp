@@ -27,6 +27,7 @@
 //         0        1        3        4        5        6        7        9
 //         9        7        6        5        4        3        1        0
 // Happy Coding~~
+
 #include <iostream>
 #include "sort.h"
 
@@ -41,7 +42,7 @@ bool evenfirst(int x, int y) {
 	return less(x, y);
 }
 
-int main(int argc, char *argv[]) {
+int main (int argc, char *argv[]) {
 	int list[] = { 3, 4, 1, 2, 7, 0, 9, 6, 5, 8 };
 	int N = sizeof(list) / sizeof(list[0]);
 	
@@ -62,4 +63,6 @@ int main(int argc, char *argv[]) {
 	printlist(list, N);
 
   	std::cout << "Happy Coding~~\n";
+
+	return 0;
 }

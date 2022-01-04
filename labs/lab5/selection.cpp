@@ -41,13 +41,26 @@
   - rand() and mod operator % 
   - Learn about a better coding after all.
 *******************************************************************************/
-#include <stdio.h>
+#include <iostream>
+#include <string>
+#include <cctype>
+#include <cassert>
+#include <cstdlib>
 
-void sort(int *list, int n) {
+using namespace std;
+
+// two comparator functions 
+// The value returned indicates whether the element passed as first argument
+// is considered to go before the second in the specific ordering.
+// more() and less() are equivalent to greater<int>() and less<int>() in STL. 
+bool more(int x, int y) { return x > y; }   // for descending order
+bool less(int x, int y) { return x < y; }   // for ascending order 
+
+void selectionsort(int *list, int n, bool (*comp)(int, int) = ::less) {
   for (int i = 0; i < n; i++) {   
     int min = i;
     for (int j = i + 1; j < n; j++)
-      if (list[j] < list[min]) min = j;
+      if (comp(list[j], list[min])) min = j;
     int temp = list[i];
     list[i] = list[min];
     list[min] = temp;
@@ -55,24 +68,62 @@ void sort(int *list, int n) {
 }
 
 #if 1
+
+void printlist(int *list, int N, int show_n = 20, int per_line = 10);
+
 int main(int argc, char *argv[]) {
-  int list[] = { 3, 4, 1, 7, 0, 9, 6, 5, 2, 8 };
-  int n = 10;
+
+  int n = 0;
+
+  while (n <= 1) {
+    cout << "Enter a number of samples to sort(q to quit): ";
+    string s;
+    cin >> s;
+
+    if (s == "q" || s == "quit") break;
+
+    int flag = 0;
+    for (auto c : s) {
+      if (!isdigit(c)) {
+        flag = 1;
+        break;
+      }
+    }
+
+    if (flag) {
+      cout << "Retry - \n";
+      continue;
+    }
+
+    n = stoi(s);
+
+  }
+
+  int *list = new (nothrow) int[n];
+  assert(list != nullptr);
+
+  srand(time(nullptr));
+  for (int i = 0; i < n; i++) 
+    list[i] = rand() % (n+1);
+  
 
   // use printlist() to show the list initialized
-  printf("UNSORTED(%d): \n", n);
-  for (int i = 0; i < n; i++) 
-    printf("%d ", list[i]);
-  printf("\n");
+  cout << "UNSORTED(" << n << "): \n";
+  printlist(list, n);
 
   // ascending order 
-  sort(list, n);
-  printf("SORTED(%d): \n", n);
-  for (int i = 0; i < n; i++) 
-    printf("%d ", list[i]);
-  printf("\n");
+  selectionsort(list, n);
+  cout << "SORTED(" << n << "): \n";
+  printlist(list, n);
 
-  printf("Happy Coding~~\n");
+  selectionsort(list, n, more);
+  cout << "SORTED(" << n << "): descending using fp\n";
+  printlist(list, n);
+
+
+  delete[] list;
+
+  cout << "Happy Coding~~\n";
   return 0;
 }
 #endif 

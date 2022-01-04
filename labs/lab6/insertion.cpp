@@ -40,14 +40,15 @@ using namespace std;
 #define DPRINT(func) ;
 #endif
 
-void insertionsort(int *list, int n) {
+
+void insertionsort(int *list, int n, bool (*comp)(int, int)) {
 	DPRINT(cout << "INSERTION SORTING...\n");
 	for (int i = 1; i < n; i++) {
 		int key = list[i];
 		int j = i - 1;
 		// move elements of list[0..i-1], that are greater than key,
 		// to one position ahead of their current position
-		while (j >= 0 && key < list[j]) {
+		while (j >= 0 && comp(key, list[j])) {
 			list[j + 1] = list[j];
 			j = j - 1;
 		}
@@ -56,7 +57,12 @@ void insertionsort(int *list, int n) {
 	}
 }
 
-#if 1
+#if 0
+
+bool more(int x, int y) { return x > y; }   // for descending order
+bool less(int x, int y) { return x < y; }   // for ascending order 
+
+void insertionsort(int *list, int n, bool (*comp)(int x, int y) = ::less);
 
 int main() {
 	int list[] = { 7, 3, 4, 1, 9, 6, 5, 2, 8, 0};
@@ -72,7 +78,7 @@ int main() {
 	cout << endl << endl;
 
     // Uncomment the next line and modify the code above to make it work. 
-	// insertionsort(list, N, more);
+	insertionsort(list, N, more);
 	cout << "INSERTION SORTED using more fp: " << endl;
 	for (auto x: list) cout << x << "  "; 
 	cout << endl << endl;

@@ -1,3 +1,5 @@
 [user]
 	email = idebtor@gmail.com
 	name = idebtor
+[core]
+	autocrlf = false

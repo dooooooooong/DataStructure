@@ -36,6 +36,9 @@ using namespace std;
 #define DPRINT(func) ;
 #endif
 
+bool more(int x, int y) { return x > y; }
+bool less (int x, int y) { return x < y; }
+
 void bubblesort(int *list, int n) {
   DPRINT(cout << "BUBBLE SORTING...\n");
   for (int i = 0; i < n - 1; i++) {
@@ -51,12 +54,21 @@ void bubblesort(int *list, int n) {
   }
 }
 
+
 // bubblesort using a comparator function passed as a function pointer.
 void bubblesort(int *list, int n, bool (*comp)(int, int)) {
-  DPRINT(cout << "BUBBLE SORTING...fp\n");
-
-  cout << "your code here\n";
-  
+  DPRINT(cout << "BUBBLE SORTING...\n");
+  for (int i = 0; i < n - 1; i++) {
+    bool swapped = false;
+    for (int j = 0; j < n - i - 1; j++) { // last i element is already in place
+      if (comp) {       
+        swapped = true;
+        swap(list[j + 1], list[j]);
+      }
+    }
+    DPRINT(for(int x = 0; x < n; x++) cout << list[x] << " "; cout << endl);
+    if (!swapped) break;
+  }
 }
 
 #if 1
@@ -74,13 +86,13 @@ int main() {
   for (auto x: list) cout << x << "  "; 
   cout << endl << endl;
 
-  cout << "your code here\n";
+  bubblesort(list, N, more);
   cout << "[2]BUBBLE SORTED - descending using fp: " << endl;
   for (auto x: list) cout << x << "  "; 
   cout << endl << endl;
 
-  cout << "your code here\n";
-  cout << "[3]BUBBLE SORTED - ascending using fp: " << endl;
+  bubblesort(list, N, ::less);
+  cout << "[3]BUBBLE SORTED - ascendingg using fp: " << endl;
   for (auto x: list) cout << x << "  "; 
   cout << endl << endl;
 }
@@ -91,6 +103,7 @@ int main() {
 #include <algorithm>
 
 int main(int argc, char *argv[]) {
+
   int list[] = { 3, 4, 1, 7, 0, 9, 6, 5, 2, 8 };
   int N = sizeof(list) / sizeof(list[0]);
 
@@ -101,7 +114,7 @@ int main(int argc, char *argv[]) {
   for (auto x: list) cout << x << " ";
   cout << endl << endl;
 
-  sort(list, list + N, std::greater<int>();
+  sort(list, list + N, std::greater<int>());
   for (auto x: list) cout << x << " ";
   cout << endl << endl;
 

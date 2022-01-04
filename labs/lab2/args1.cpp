@@ -8,24 +8,33 @@
 //	4. include file
 //  5. not using `using namespace std;`
 
-#include<iostream>
+#include <iostream>
+#include <vector>
+
 using namespace std;
 
 void printfunc(int n, char *args[]);
+void printfunc(std::vector<std::string> v);
 
 int main(int argc, char *argv[]) {
 	cout << "Print **argv using printfunc(**argv) except 1st one\n";
-	cout << "your code here\n";
+	printfunc(argc, argv);
 
 	// copy **argv to a `vector<string> names;` except 1st one. 
 	// use push_back() method in the vector class
+	
+
+
 	cout << "Copy **argv using vector<string> except 1st one\n";
-	cout << "your code here\n";
+	vector <string> names;
+	for (int i = 1; i < argc; i++) {
+		names.push_back(argv[i]);
+	}
 
 	// print names only using for-loop and names
 	// do not use argc/argv and ranged-for loop
 	cout << "Print names using for-loop, but not argc/argv, ranged-for\n";
-	cout << "your code here\n";
+	printfunc(names);
 
 	// print names using printfunc(vector<string>)
 	// use ranged-for loop in printfunc(vector<string>)

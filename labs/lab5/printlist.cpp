@@ -10,6 +10,8 @@
 #include <iostream>
 #include <iomanip>
 
+
+
 // a helper function
 void print(int *list, int start, int end, int per_line) {
 	int count = 1;
@@ -28,7 +30,7 @@ void print(int *list, int start, int end, int per_line) {
 
 ///////////////////////////////////////////////////////////////////////////////
 // the following printlist() prototype is included in sort.h 
-// void printlist(int *list, int n, int show_n = 20, int per_line = 10);
+void printlist(int *list, int n, int show_n = 20, int per_line = 10);
 ///////////////////////////////////////////////////////////////////////////////
 // prints all the values in the list if the list size N is less than show_n. 
 // If the list size is greater than show_n, then it shows only show_n/2

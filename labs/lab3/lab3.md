@@ -291,7 +291,7 @@ int main(int argc, char *argv[]) {
 
     return 0;
 }
-```  
+```
 #### Sample Run:
 ```
 $ g++ setmax_ret.cpp -o setmax_ret

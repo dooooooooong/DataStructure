@@ -1,0 +1,29 @@
+# On my honor, I pledge that I have neither received nor provided improper assistance in the completion of this assignment.
+# 서명: ___강동인_______ 학번: ____21500002___
+
+CC = g++
+LIBDIR = ../../lib
+INCDIR = ../../include
+CCFLAGS = -Wall -std=c++11 -g
+LDFLAGS = -L$(LIBDIR) -lnowic -lsort
+
+SRC1 = sortDriver.cpp
+OBJ1 = $(SRC1:.cpp =.o)
+EXE1 = sortDriver
+
+$(EXE1): $(OBJ1)
+	$(CC) $(CCFLAGS) -I$(INCDIR) -o $@ $^ $(LDFLAGS)
+	
+	
+.PHONY: all clean
+all: $(EXE1)
+clean:
+	rm -f $(OBJ1) $(EXE1)
+
+
+# make automatic variable
+# $@ 타겟의 파일이름
+# $^ 파일들의 prerequistis
+# $< 파일들의 처음 prerequistis
+# $* 타겟 파일의 줄기
+# &+ $^과 같지만 중복을 허락한다.

@@ -32,15 +32,16 @@ using namespace std;
 #define DPRINT(func) ;
 #endif
 
+
 // a helper function to check two elementes sorted.
 // include two elements same value as sorted 
-int sorted(int *a, int i, int j) {  
-    return a[i] <= a[j];                // two elements same value as sorted 
+int sorted(int *a, int i, int j, bool (*comp)(int, int)) {  
+    return comp(a[i], a[j]) || a[i] <= a[j];              // two elements same value as sorted 
 }
 
-void merge(int *a, int *aux, int lo, int mi, int hi) {
-    assert(sorted(a, lo,   mi));		// precondition: a[lo..mi]   sorted
-    assert(sorted(a, mi+1, hi));		// precondition: a[mi+1..hi] sorted
+void merge(int *a, int *aux, int lo, int mi, int hi, bool (*comp)(int, int)) {
+    assert(sorted(a, lo,   mi, comp));		// precondition: a[lo..mi]   sorted
+    assert(sorted(a, mi+1, hi, comp));		// precondition: a[mi+1..hi] sorted
     for (int k = lo; k <= hi; k++)	aux[k] = a[k];
 
     int i = lo;
@@ -48,34 +49,38 @@ void merge(int *a, int *aux, int lo, int mi, int hi) {
     for (int k = lo; k <= hi; k++) {
         if      (i > mi)          a[k] = aux[j++];     // A is exhausted, take B[j]
         else if (j > hi)          a[k] = aux[i++];     // B is exhausted, take A[i]
-        else if (aux[j] < aux[i]) a[k] = aux[j++];     // B[j] <  A[i], take B[j]
+        else if (comp(aux[j], aux[i])) a[k] = aux[j++];     // B[j] <  A[i], take B[j]
         else                      a[k] = aux[i++];     // A[i] <= B[j], take A[i]
     }
-    assert(sorted(a, lo, hi));		// postcondition: a[lo..hi] sorted
+    assert(sorted(a, lo, hi, comp));		// postcondition: a[lo..hi] sorted
 }
 
-void mergesort(int *a, int *aux, int lo, int hi) {
+void mergesort(int *a, int *aux, int lo, int hi, bool (*comp)(int, int)) {
     if (hi <= lo) return;
 
     int mi = lo + (hi - lo) / 2;
-    mergesort(a, aux, lo,     mi);
-    mergesort(a, aux, mi + 1, hi);
-    merge(a, aux, lo, mi, hi);
+    mergesort(a, aux, lo,     mi, comp);
+    mergesort(a, aux, mi + 1, hi, comp);
+    merge(a, aux, lo, mi, hi, comp);
 }
 
-void mergesort(int *a, int N) {
+void mergesort(int *a, int N, bool (*comp)(int, int)) {
     int *aux = new (nothrow) int[N];
     assert(aux != nullptr);
 
-    mergesort(a, aux, 0, N - 1);
+    mergesort(a, aux, 0, N - 1, comp);
     delete[] aux;
 }
 
-#if 1
+#if 0
+bool more(int x, int y) { return x > y; }   // for descending order
+bool less(int x, int y) { return x < y; }   // for ascending order 
+
+void mergesort(int *a, int N, bool (*comp)(int, int) = ::less);
 
 int main() {
     // char a[] = {'M','E','R','G','E','S','O','R','T','E','X','A','M','P','L','E'};
-    // int a[] = { 54, 26, 93, 17, 77, 31, 44, 55, 20 };
+    //int a[] = { 54, 26, 93, 17, 77, 31, 44, 55, 20 };
 	int a[] = { 3, 4, 1, 7, 0, 9, 6, 5, 2, 8 };
     int N = sizeof(a) / sizeof(a[0]);
 
@@ -89,7 +94,7 @@ int main() {
     cout << endl << endl;;
 
     // Uncomment the next line and modify the code above to make it work. 
-    // mergesort(a, N, more); 
+    mergesort(a, N, more); 
     cout << "MERGE SORTED using more fp: \n"; 
     for (auto x: a) cout << x << " "; 
     cout << endl << endl;
