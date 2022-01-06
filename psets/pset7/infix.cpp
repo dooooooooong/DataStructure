@@ -55,12 +55,19 @@ struct stack {
 
 template <typename T>
 void printStack(stack<T> orig) {
+    stack<T> temp;
+    while (!orig.empty()) {
+        temp.push(orig.top());
+        orig.pop();
+    }
 
-	cout << "Step 2: your code here: copy printStack() template version from postfix.cpp\n";
-	cout << "Step 3: rewrite printStack() using recursion. refer to PDF file\n";
-
-	cout << endl;
+    while (!temp.empty()) {
+		cout << temp.top() << ' ';
+        orig.push(temp.top());
+        temp.pop();
+    }
 }
+
 
 // performs arithmetic operations.
 double apply_op(double a, double b, char op) {
@@ -75,9 +82,9 @@ double apply_op(double a, double b, char op) {
 }
 
 // there is a bug...
-double compute(stack<int>& va_stack, stack<char>& op_stack) {
-	double left  = va_stack.top(); va_stack.pop();     
-	double right = va_stack.top(); va_stack.pop();
+double compute(stack<double>& va_stack, stack<char>& op_stack) {
+	double right  = va_stack.top(); va_stack.pop();     
+	double left = va_stack.top(); va_stack.pop();
 	char op = op_stack.top(); op_stack.pop();
 	double value = apply_op(left, right, op);
 
@@ -100,29 +107,42 @@ double evaluate(string tokens) {
 		// current token is a value(or operand), push it to va_stack.
 		if (isdigit(tokens[i])) {
 			int ivalue = 0;
-			cout << "your code here: to handle multi-digits(operand)\n";
-			ivalue = tokens[i] - '0';
+			string num;
+			int index = 0;
+
+			while (isdigit(tokens[i + index])) {
+				num.push_back(tokens[i+index]);
+				index++;
+			}
+
+			ivalue = stoi(num);
 			va_stack.push(ivalue);
+			i += index-1;
 		} 
 		else if (tokens[i] == ')') { // compute it, push the result to va_stack
-
-			cout << "your code here\n";
-
+			va_stack.push(compute(va_stack, op_stack));
 		}
+
 		else { // token is an operator; push it to op_stack.
 			op_stack.push(tokens[i]);
 		}
+		DPRINT(cout << "va_stack: "; printStack(va_stack);  cout << endl;);
+		DPRINT(cout << "op_stack: "; printStack(op_stack);  cout << endl;);
 	}
 
 	DPRINT(cout << "tokens exhausted: now, check two stacks:" << endl;);
 	DPRINT(printStack(va_stack);  cout << endl;);
 	DPRINT(printStack(op_stack);  cout << endl;);
 
-	cout << "your code here: process if !op_stack.empty() \n";
+	while (!op_stack.empty()) {
+		va_stack.push(compute(va_stack, op_stack));
+	}
+	
+	assert(va_stack.size() == 1);
+	assert(op_stack.empty());
 
-	cout << "your code here: post-conditions\n";
-
-	cout << "your code here: return & clean-up\n";
+	value = va_stack.top();
+	va_stack.pop();
 
 	return value;
 }

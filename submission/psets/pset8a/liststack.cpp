@@ -31,6 +31,7 @@ int size(pNode p) {
 	if (empty(p)) return 0;
 	int count = 0;
 	
+
 	while (p != nullptr) {
 		p = p->next;
 		count++;

@@ -1,4 +1,8 @@
-// infix.cpp :
+ // On my honor, I pledge that I have neither received nor provided improper assistance in the completion of this assignment.
+// 서명: ___강동인_______ 학번: ____21500002___
+
+
+// infixall.cpp :
 //
 // The program evaluates a given infix expression which is fully parenthesized.
 // It uses Dijkstra's two-stack algorithm. For simplicity of coding, however,

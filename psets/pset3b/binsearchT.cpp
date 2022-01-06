@@ -55,7 +55,8 @@ using namespace std;
 #define DPRINT(func) ;
 #endif
 
-int binarysearch(int *data, int key, int lo, int hi) {
+template <typename T>
+int binarysearch(const T *data, const T key, int lo, int hi) {
 	DPRINT(cout << "key=" << key << " lo=" << lo << " hi=" << hi << endl;);
 
 	int mid = (lo+hi)/2;
@@ -70,7 +71,8 @@ int binarysearch(int *data, int key, int lo, int hi) {
 }
 
 // randomly generate a key to search between list[0] and list[size-1].
-int get_a_key(int *list, int size) {
+template <typename T>
+T get_a_key(const T *list, int size) {
   	int key = rand() % (list[size - 1] + 1 - list[0]) + list[0];
 	return key;
 }
@@ -80,9 +82,10 @@ int get_a_key(int *list, int size) {
 // and also displays the results. If the key is found in the list,
 // it displays its index in the list. If the key is not found, it
 // displays where it is supposed to be appeared if there is one.
-void binarysearch(int *list, int size) {
+template <typename T>
+void binarysearch(const T *list, int size) {
 	DPRINT(cout << ">binarysearch: size=" << size << endl;)
-	int key = get_a_key(list, size);
+	T key = get_a_key(list, size);
 	int idx = binarysearch(list, key, 0, size);
 
 	if (idx == -1)  cout << key << "\tis not @list[" << size << "]\n";
@@ -96,8 +99,8 @@ void binarysearch(int *list, int size) {
 #if 1
 int main() {
 	// char list[] = { 'a', 'c', 'e', 'g' };
-	// char list[] = { 'a', 'c', 'e', 'g', 'i', 'k' };
-	int list[] = { 0, 1, 4, 6 };
+	char list[] = { 'a', 'c', 'e', 'g', 'i', 'k' };
+	// int list[] = { 0, 1, 4, 6 };
 	// int list[] = { 3, 5, 6, 8, 9, 11 };
 
 	int size = sizeof(list) / sizeof(list[0]);

@@ -1,3 +1,6 @@
+ // On my honor, I pledge that I have neither received nor provided improper assistance in the completion of this assignment.
+// 서명: ___강동인_______ 학번: ____21500002___
+
 // infix.cpp :
 //
 // The program evaluates a given infix expression which is fully parenthesized.
@@ -13,7 +16,6 @@
 //
 #include <iostream>
 #include <cassert>
-#include <cmath>
 using namespace std;
 
 #ifdef DEBUG
@@ -56,23 +58,19 @@ struct stack {
 
 template <typename T>
 void printStack(stack<T> orig) {
-    stack<T> temp = orig;
+    stack<T> temp;
+    while (!orig.empty()) {
+        temp.push(orig.top());
+        orig.pop();
+    }
 
-	if (temp.empty()) return;
-    
-	T top = temp.top();
-	temp.pop();
-	printStack(temp);
-	cout << top << " ";
+    while (!temp.empty()) {
+		cout << temp.top() << ' ';
+        orig.push(temp.top());
+        temp.pop();
+    }
 }
 
-int precedence(char op) {
-	if (op == '(') return 0;
-	if (op == '+' || op == '-') return 1;
-	if (op == '*' || op == '/') return 2;
-	if (op == '^') return 3;
-	return 4;
-}
 
 // performs arithmetic operations.
 double apply_op(double a, double b, char op) {
@@ -81,7 +79,6 @@ double apply_op(double a, double b, char op) {
 	case '-': return a - b;
 	case '*': return a * b;
 	case '/': return a / b;
-	case '^': return pow(a, b);
 	}
 	cout << "Unsupported operator encountered: " << op << endl;
 	return 0;
@@ -107,7 +104,7 @@ double evaluate(string tokens) {
 
 	for (size_t i = 0; i < tokens.length(); i++) {
 		// token is a whitespace or an opening brace, skip it.
-		if (isspace(tokens[i])) continue;
+		if (isspace(tokens[i]) || tokens[i] == '(') continue;
 		DPRINT(cout << " tokens[" << i << "]=" << tokens[i] << endl;);
 
 		// current token is a value(or operand), push it to va_stack.
@@ -125,25 +122,12 @@ double evaluate(string tokens) {
 			va_stack.push(ivalue);
 			i += index-1;
 		} 
-
-		else if (tokens[i] == '(') op_stack.push(tokens[i]);
-
 		else if (tokens[i] == ')') { // compute it, push the result to va_stack
-			while (op_stack.top() != '(' && !op_stack.empty()) {
-				va_stack.push(compute(va_stack, op_stack));
-			}
-
-			// pop opening brace.
-            if(!op_stack.empty())
-               op_stack.pop();
+			va_stack.push(compute(va_stack, op_stack));
 		}
 
-		else {     // 연산자 우선순위 따져줄 때
-            while(!op_stack.empty() && precedence(op_stack.top()) >= precedence(tokens[i])){
-                va_stack.push(compute(va_stack, op_stack));
-            }
-             
-            op_stack.push(tokens[i]);
+		else { // token is an operator; push it to op_stack.
+			op_stack.push(tokens[i]);
 		}
 		DPRINT(cout << "va_stack: "; printStack(va_stack);  cout << endl;);
 		DPRINT(cout << "op_stack: "; printStack(op_stack);  cout << endl;);

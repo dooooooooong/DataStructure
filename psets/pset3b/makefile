@@ -23,17 +23,17 @@ SRC1 = binsearch.cpp
 OBJ1 = $(SRC1:.cpp=.o)
 EXE1 = binsearch
 
-#SRC1T = binsearchT.cpp 
-#OBJ1T = $(SRC1T:.cpp=.o)
-#EXE1T = binsearchT
+SRC1T = binsearchT.cpp 
+OBJ1T = $(SRC1T:.cpp=.o)
+EXE1T = binsearchT
 
 # rule for link
 all: $(EXE1) $(EXE1T) 
 $(EXE1): $(OBJ1)
 	$(CC) -o $@ $^ $(LDFLAGS)
 
-#$(EXE1T): $(OBJ1T)
-#	$(CC) -o $@ $^ $(LDFLAGS)
+$(EXE1T): $(OBJ1T)
+	$(CC) -o $@ $^ $(LDFLAGS)
 
 # rule for compilation
 %.o: %.cpp
