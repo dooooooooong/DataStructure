@@ -12,7 +12,7 @@ CC = g++
 LIBDIR = ../../lib
 INCDIR = ../../include
 CCFLAGS = -std=c++11 -Wall -g 
-#CCFLAGS += -DDEBUG        # uncomment for debugging
+# CCFLAGS += -DDEBUG        # uncomment for debugging
 ifeq ($(OS),Windows_NT)
 	LDFLAGS = -L$(LIBDIR) -lnowic -lsort -lrand
 else
