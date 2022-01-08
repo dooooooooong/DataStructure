@@ -1,3 +1,6 @@
+// On my honor, I pledge that I have neither received nor provided improper assistance in the completion of this assignment.
+// 서명: ___강동인_______ 학번: ____21500002___
+
 // bubble sort by idebtor@gmail.com
 // The bubble sort makes multiple passes through a list. It compares adjacent 
 // items and exchanges those that are out of order. Each pass through the list 
@@ -36,24 +39,6 @@ using namespace std;
 #define DPRINT(func) ;
 #endif
 
-bool more(int x, int y) { return x > y; }
-bool less (int x, int y) { return x < y; }
-
-void bubblesort(int *list, int n) {
-  DPRINT(cout << "BUBBLE SORTING...\n");
-  for (int i = 0; i < n - 1; i++) {
-    bool swapped = false;
-    for (int j = 0; j < n - i - 1; j++) { // last i element is already in place
-      if (list[j + 1] < list[j]) {        // hard-code comparison: works only for ascending
-        swapped = true;
-        swap(list[j + 1], list[j]);
-      }
-    }
-    DPRINT(for(int x = 0; x < n; x++) cout << list[x] << " "; cout << endl);
-    if (!swapped) break;
-  }
-}
-
 
 // bubblesort using a comparator function passed as a function pointer.
 void bubblesort(int *list, int n, bool (*comp)(int, int)) {
@@ -61,7 +46,7 @@ void bubblesort(int *list, int n, bool (*comp)(int, int)) {
   for (int i = 0; i < n - 1; i++) {
     bool swapped = false;
     for (int j = 0; j < n - i - 1; j++) { // last i element is already in place
-      if (comp) {       
+      if (comp(list[j + 1], list[j])) {       
         swapped = true;
         swap(list[j + 1], list[j]);
       }
@@ -72,6 +57,11 @@ void bubblesort(int *list, int n, bool (*comp)(int, int)) {
 }
 
 #if 1
+
+bool more(int x, int y) { return x > y; }   // for descending order
+bool less(int x, int y) { return x < y; }   // for ascending order 
+
+void bubblesort(int *list, int n, bool (*comp)(int, int) = ::less);
 
 int main() {
   int list[] = { 3, 4, 1, 7, 0, 9, 6, 5, 2, 8 };

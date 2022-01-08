@@ -33,27 +33,17 @@ int main(int argc, char *argv[]) {
     vector<int> list2 = {33, 13, 45, 19, 39, 22};
 
     cout << ">list1: "; 
-    for (auto x: list1) 
-        cout << x << " "; 
-    cout << endl; 
-    
+    for (auto x: list1) cout << x << " "; cout << endl; 
     setmax(&list1); 
-    
     cout << "<list1: "; 
-    for (auto x: list1) 
-        cout << x << " "; 
+    for (auto x: list1) cout << x << " "; 
     cout << endl << endl;
 
     cout << ">list2: "; 
-    for (auto x: list2) 
-        cout << x << " ";
-    cout << endl; 
-
+    for (auto x: list2) cout << x << " "; cout << endl; 
     setmax(&list2); 
-
     cout << "<list2: "; 
-    for (auto x: list2) 
-        cout << x << " "; 
+    for (auto x: list2) cout << x << " "; 
     cout << endl; 
 
     return 0;

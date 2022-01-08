@@ -31,8 +31,7 @@ int main(int argc, char *argv[]) {
         if (i % 2 == 0) i *= 10;   
     }
 
-    for (auto x: list) 
-        cout << x << " ";
+    for (auto x: list) cout << x << " ";
     return 0;
 }
 #endif

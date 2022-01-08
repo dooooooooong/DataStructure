@@ -1,4 +1,8 @@
-﻿///
+﻿// On my honor, I pledge that I have neither received nor provided improper assistance in the completion of this assignment.
+// 서명: 강동인  학번: 21500002
+
+
+///
 /// File: listdblx.cpp, listdbl.h
 ///       implements a doubly linked list with sentinel nodes
 ///       and test it interactively

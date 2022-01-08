@@ -1,3 +1,6 @@
+// On my honor, I pledge that I have neither received nor provided improper assistance in the completion of this assignment.
+// 서명: ___강동인_______ 학번: ____21500002___
+
 // mergesort.cpp by idebtor@gmail.com
 // A typical recursive implementation of mergesort in C++.
 //
@@ -72,7 +75,7 @@ void mergesort(int *a, int N, bool (*comp)(int, int)) {
     delete[] aux;
 }
 
-#if 0
+#if 1
 bool more(int x, int y) { return x > y; }   // for descending order
 bool less(int x, int y) { return x < y; }   // for ascending order 
 

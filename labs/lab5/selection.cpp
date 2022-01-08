@@ -1,3 +1,6 @@
+// On my honor, I pledge that I have neither received nor provided improper assistance in the completion of this assignment.
+// 서명: ___강동인_______ 학번: ____21500002___
+
 // C++ for C Coders & Data Structures
 // Lecture note by idebtor@gmail.com
 // 
@@ -49,14 +52,7 @@
 
 using namespace std;
 
-// two comparator functions 
-// The value returned indicates whether the element passed as first argument
-// is considered to go before the second in the specific ordering.
-// more() and less() are equivalent to greater<int>() and less<int>() in STL. 
-bool more(int x, int y) { return x > y; }   // for descending order
-bool less(int x, int y) { return x < y; }   // for ascending order 
-
-void selectionsort(int *list, int n, bool (*comp)(int, int) = ::less) {
+void selectionsort(int *list, int n, bool (*comp)(int, int)) {
   for (int i = 0; i < n; i++) {   
     int min = i;
     for (int j = i + 1; j < n; j++)
@@ -69,7 +65,11 @@ void selectionsort(int *list, int n, bool (*comp)(int, int) = ::less) {
 
 #if 1
 
+bool more(int x, int y) { return x > y; }   // for descending order
+bool less(int x, int y) { return x < y; }   // for ascending order 
+
 void printlist(int *list, int N, int show_n = 20, int per_line = 10);
+void selectionsort(int *list, int n, bool (*comp)(int, int) = ::less);
 
 int main(int argc, char *argv[]) {
 

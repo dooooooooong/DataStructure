@@ -1,3 +1,7 @@
+// On my honor, I pledge that I have neither received nor provided improper assistance in the completion of this assignment.
+// 서명: ___강동인_______ 학번: ____21500002___
+
+
 // Topic: Performance Analysis - profiling
 //
 // Description:	This program profiles the complexity of sorting algorithms.
@@ -140,6 +144,8 @@ int main(int argc, char *argv[]) {
         for (int i = 0; i < N; i++) list[i] = j--;			// reversed sequence
         profiling(sort_fp[i], list, N, ::less);   
     }
+
+
 
 	// ///////////// rewrite this part for DRY and MNN ////////////////////////
 

@@ -1,3 +1,6 @@
+// On my honor, I pledge that I have neither received nor provided improper assistance in the completion of this assignment.
+// 서명: ___강동인_______ 학번: ____21500002___
+
 // insertion sort 
 // It sorts an array of elements in order by comparing each element with the prior 
 // elements and moving each element accordingly. It always maintains a sorted 
@@ -57,7 +60,7 @@ void insertionsort(int *list, int n, bool (*comp)(int, int)) {
 	}
 }
 
-#if 0
+#if 1
 
 bool more(int x, int y) { return x > y; }   // for descending order
 bool less(int x, int y) { return x < y; }   // for ascending order 

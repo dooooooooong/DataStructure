@@ -1,3 +1,6 @@
+ // On my honor, I pledge that I have neither received nor provided improper assistance in the completion of this assignment.
+// 서명: ___강동인_______ 학번: ____21500002___
+
 #include <iostream>
 #include <iomanip>
 #include <unistd.h>

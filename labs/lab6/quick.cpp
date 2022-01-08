@@ -1,3 +1,6 @@
+// On my honor, I pledge that I have neither received nor provided improper assistance in the completion of this assignment.
+// 서명: ___강동인_______ 학번: ____21500002___
+
 // quicksort algorithm
 // 
 // A quicksort algorithm - its time complexity is O(n^2).
@@ -73,7 +76,7 @@ void quicksort(int *a, int n, bool (*comp)(int, int)) {
 	quicksort(a, 0, n - 1, n, comp);  // the last argument n is added only for DPRINT()
 }
 
-#if 0
+#if 1
 
 bool more(int x, int y) { return x > y; }   // for descending order
 bool less(int x, int y) { return x < y; }   // for ascending order 

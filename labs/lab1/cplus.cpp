@@ -1,3 +1,7 @@
+// On my honor, I pledge that I have neither received nor provided improper assistance in the completion of this assignment.
+// 서명: ___강동인_______ 학번: ____21500002___
+
+
 // Lab1 - C/C++ code conversion
 // Subjects:
 // 1. C vs C++
@@ -63,4 +67,5 @@ int main(int argc, char *argv[]) {
     delete data;
     return 0;
 }
+
 #endif

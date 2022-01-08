@@ -24,7 +24,7 @@
 //////////////////////////////////////////////////////////////////////////////
 // Define touppers() here that converts an input arguments into all uppercases
 void touppers(std::string& s) {
-    for (std::size_t i = 0; i < s.length(); i++) {
+    for (int i = 0; i < s.length(); i++) {
         s[i] = toupper(s[i]);
     }
 }
