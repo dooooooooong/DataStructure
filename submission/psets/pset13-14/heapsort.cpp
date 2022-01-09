@@ -149,7 +149,7 @@ void show(char* a, int N) {
 // The first element(a[0]) is excluded.
 int main(int argc, char* argv[]) {
 #if 1
-  char a[] = { ' ', 'C', 'H', 'R', 'I', 'S', 'T', 'I', 'A', 'N', 'D', 'I', '\0', '\0'};
+  char a[] = { ' ', 'C', 'H', 'R', 'I', 'S', 'T', 'A', 'L', 'O', 'N', 'E', '\0', '\0'};
   int N = sizeof(a) / sizeof(a[0]) - 3;   // -3 because of 1st ' ' and last two '\0'.
 #else
 	char a[1024], line[1024];
