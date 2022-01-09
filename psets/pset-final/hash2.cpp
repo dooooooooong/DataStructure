@@ -1,4 +1,6 @@
-/// 
+// On my honor, I pledge that I have neither received nor provided improper assistance in the completion of this assignment.
+// 서명: ___강동인_______ 학번: ____21500002___
+
 /// Hashing is an important data structure which is designed to use 
 /// a special function called the hash function. The function is used to 
 /// map a given value with a particular key for faster access of elements. 
@@ -109,16 +111,29 @@ void rehash(Hash*& ht, int new_size) {
     DPRINT(cout << "rehash usersize: " << new_size << endl;);
 
     int old_size = tablesize(ht);
-    if (old_size == new_size) return;
+    ht->tablesize = new_size;
+ 
+    list <wordcount>* newTable = new list<wordcount>[new_size];
+    // free old ht, then set the new ht
+    for (int i = 0; i < old_size; i++) {
+        // int index = hashfunction(ht, key);
+        list <wordcount>::iterator it = ht->hashtable[i].begin();                                  
+        // for loop using it, then return true if erased successfully.
+        for (auto key = it; key != ht->hashtable[i].end(); key++) {
+            // rehash because, tablesize changed.
+            int index = 0;
+            for (auto x : key->first)
+                index = 37 * index + x;
 
-    // create new double-sized and emtpy table, use nextprime()
-    cout << "your code here\n";
+            index %= new_size;
+            if (index < 0) index += ht->tablesize;
 
-    // rehashing 
-    cout << "your code here\n";
+            newTable[index].push_back(*key);
+        }
+    }
 
-    // free the old ht, ht becomes the new hash table
-    cout << "your code here\n";
+    delete[] ht->hashtable;
+    ht->hashtable = newTable;
 
     cout << "\tREHASHED(tablesize: " << old_size << " -> " << new_size << ")\n";
 }
@@ -132,12 +147,21 @@ bool insert(Hash*& ht, string key) {
     list<wordcount>::iterator it;
     // loop through this bucket to find the key. if found, increment it->second 
 
-    cout << "your code here:" << index << endl;
+    bool found = false;
 
-    // if not found, make_pair(key, 1) and insert it to the table
-    // rehash if necessary
+    it = ht->hashtable[index].begin();
+    for (auto iter = it; iter != ht->hashtable[index].end(); iter++) {
+        if (key == iter->first) {
+            found = true;
+            iter->second++;
+        }
+    }
 
-    cout << "your code here\n";
+    if (!found) ht->hashtable[index].push_back(make_pair(key, 1));
+    ht->nelements++;
+
+    if (loadfactor(ht) >= threshold(ht))
+        rehash(ht);
 
     DPRINT(cout << "<insert: " << key << endl;);
 	return true;
@@ -149,10 +173,16 @@ bool erase(Hash*& ht, string key) {
     DPRINT(cout << ">erase: " << key << endl;);
 
     int index = hashfunction(ht, key);         // get the hash value for key 
-    list<wordcount>::iterator it;              // find the key in (index)th list 
-
-    // for loop through using it and return true when erased successfully.
-    cout << "your code here:" << index << endl;
+    list<wordcount>::iterator it =  ht->hashtable[index].begin();              // find the key in (index)th list 
+                                        
+    // for loop using it, then return true if erased successfully.
+    for (auto iter = it; iter != ht->hashtable[index].end(); iter++) {
+        if (key == iter->first) {
+            ht->nelements--;
+            ht->hashtable[index].erase(iter);
+            return true;
+        }
+    }
 
     DPRINT(cout << "<erase failed: " << key << endl;);
     return false;
@@ -163,11 +193,17 @@ list<wordcount> find(Hash* ht, string key) {
     DPRINT(cout << ">find: " << key << endl;);
     list<wordcount> empty_bucket;
 
-    int index = hashfunction(ht, key);         // get the hash value for key 
-    list<wordcount>::iterator it;              // find the key in (index)th list 
-    if (ht->hashtable[index].size() > 0) {     // cannot use find() because of comp op
-        // for loop through using it and returns the element if found
-        cout << "your code here:" << index << endl;
+    int index = hashfunction(ht, key);    // get the hash value for key 
+    if (ht->hashtable[index].size() > 0) {
+
+        list <wordcount>::iterator it = ht->hashtable[index].begin();
+                                            
+        for (auto iter = it; iter != ht->hashtable[index].end(); iter++) {
+            if (key == iter->first) {
+                empty_bucket = ht->hashtable[index];
+                break;
+            }
+        }
     }
 
     DPRINT(cout << "<find: not found" << key << endl;);
